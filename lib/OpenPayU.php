@@ -9,11 +9,10 @@
 	http://developers.payu.com
 	http://twitter.com/openpayu
 */
+define('OPENPAYU_LIBRARY', true);
 
-if (!defined('OPENPAYU_LIBRARY'))
-    exit;
 
-class OpenPayU extends OpenPayUBase
+class OpenPayU extends OpenPayU_Base
 {
 
     /**

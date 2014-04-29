@@ -10,7 +10,7 @@
 	http://twitter.com/openpayu
 */
 
-class OpenPayUNetwork
+class OpenPayU_Network
 {
     /** @var string OpenPayU EndPoint Url */
     protected static $openPayuEndPointUrl = '';

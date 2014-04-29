@@ -16,6 +16,12 @@
             "homepage": "http://develeopers.payu.com"
         }
     ],
+    "autoload": {
+        "psr-0" : {
+            "OpenPayU_" : "lib/",
+            "" : "lib/"
+        }
+    },
     "require": {
         "php": ">=5.2.1",
         "ext-curl": "*",

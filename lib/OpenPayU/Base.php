@@ -10,10 +10,10 @@
 	http://twitter.com/openpayu
 */
 
-if (!defined('OPENPAYU_LIBRARY'))
-    exit;
+//if (!defined('OPENPAYU_LIBRARY'))
+//    exit;
 
-class OpenPayUBase extends OpenPayUNetwork
+class OpenPayU_Base extends OpenPayU_Network
 {
 
     /** @var string outputConsole message */
@@ -50,7 +50,7 @@ class OpenPayUBase extends OpenPayUNetwork
      */
     public static function buildOpenPayURequestDocument($data, $startElement, $version = '1.0', $xml_encoding = 'UTF-8')
     {
-        return OpenPayUBase::buildOpenPayUDocument($data, $startElement, 1, $version, $xml_encoding);
+        return OpenPayU_Base::buildOpenPayUDocument($data, $startElement, 1, $version, $xml_encoding);
     }
 
     /**
@@ -64,7 +64,7 @@ class OpenPayUBase extends OpenPayUNetwork
      */
     public static function buildOpenPayUResponseDocument($data, $startElement, $version = '1.0', $xml_encoding = 'UTF-8')
     {
-        return OpenPayUBase::buildOpenPayUDocument($data, $startElement, 0, $version, $xml_encoding);
+        return OpenPayU_Base::buildOpenPayUDocument($data, $startElement, 0, $version, $xml_encoding);
     }
 
     /**
@@ -109,19 +109,19 @@ class OpenPayUBase extends OpenPayUNetwork
             foreach ($data as $key => $value) {
                 if (is_array($value)) {
                     if (is_numeric($key)) {
-                        $fragment .= OpenPayUBase::arr2form($value, $parent, $key);
+                        $fragment .= OpenPayU_Base::arr2form($value, $parent, $key);
                     } else {
                         $p = $parent != '' ? $parent . '.' . $key : $key;
                         if (is_numeric($index)) {
                             $p .= '[' . $index . ']';
                         }
-                        $fragment .= OpenPayUBase::arr2form($value, $p, $key);
+                        $fragment .= OpenPayU_Base::arr2form($value, $p, $key);
                     }
                     continue;
                 }
 
                 $path = $parent != '' ? $parent . '.' . $key : $key;
-                $fragment .= OpenPayUBase::buildFormFragmentInput($path, $value);
+                $fragment .= OpenPayU_Base::buildFormFragmentInput($path, $value);
             }
         }
 
@@ -145,7 +145,7 @@ class OpenPayUBase extends OpenPayUNetwork
                     return $tree;
                 } else if ($xml->nodeType == XMLReader::ELEMENT) {
                     if (!$xml->isEmptyElement) {
-                        $tree[$xml->name] = OpenPayUBase::read($xml);
+                        $tree[$xml->name] = OpenPayU_Base::read($xml);
                     }
                 } else if ($xml->nodeType == XMLReader::TEXT) {
                     $tree = $xml->value;
@@ -193,7 +193,7 @@ class OpenPayUBase extends OpenPayUNetwork
 
         // domain level - open
         if(OpenPayU_Configuration::getApiVersion() < 2)
-            $xml->startElement(OpenPayUDomain::getDomain4Message($startElement));
+            $xml->startElement(OpenPayU_Domain::getDomain4Message($startElement));
 
         // message level - open
         $xml->startElement($startElement);
@@ -238,12 +238,12 @@ class OpenPayUBase extends OpenPayUNetwork
         if (!is_array($data))
             return false;
 
-        $url = OpenPayUNetwork::getOpenPayuEndPoint();
+        $url = OpenPayU_Network::getOpenPayuEndPoint();
 
         $form = "<form method='post' action='" . $url . "'>\n";
-        $form .= OpenPayUBase::buildFormFragmentInput('HeaderRequest.Version', $version);
-        $form .= OpenPayUBase::buildFormFragmentInput('HeaderRequest.Name', $msgName);
-        $form .= OpenPayUBase::arr2form($data, '', '');
+        $form .= OpenPayU_Base::buildFormFragmentInput('HeaderRequest.Version', $version);
+        $form .= OpenPayU_Base::buildFormFragmentInput('HeaderRequest.Name', $msgName);
+        $form .= OpenPayU_Base::arr2form($data, '', '');
         $form .= "</form>";
 
         return $form;
