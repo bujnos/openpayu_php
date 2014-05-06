@@ -306,6 +306,6 @@ class OpenPayU_Configuration
      */
     private static function getComposerFilePath()
     {
-        return '../../'.self::COMPOSER_JSON;
+        return (realpath(__DIR__.'/../../'.self::COMPOSER_JSON));
     }
 }
