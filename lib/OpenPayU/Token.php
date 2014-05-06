@@ -11,9 +11,6 @@
  *
  */
 
-if (!defined('OPENPAYU_LIBRARY'))
-    var_dump(__FILE__);
-//    exit;
 
 class OpenPayU_Token extends OpenPayU
 {

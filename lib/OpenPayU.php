@@ -9,8 +9,6 @@
 	http://developers.payu.com
 	http://twitter.com/openpayu
 */
-define('OPENPAYU_LIBRARY', true);
-
 
 class OpenPayU extends OpenPayU_Base
 {
